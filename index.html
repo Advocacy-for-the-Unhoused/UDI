@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <body style="font-family:Arial; max-width:400px; margin:20px auto">
+    <h2>Track Your Donation</h2>
+
+    <input id="udi" placeholder="Enter your UDI" style="width:100%; padding:8px" />
+    <br><br>
+
+    <button onclick="search()" style="padding:8px 12px">Search</button>
+
+    <div id="result" style="margin-top:15px"></div>
+
+    <script>
+      async function search() {
+        const udi = document.getElementById("udi").value;
+
+        const res = await fetch(
+          "https://script.google.com/macros/s/AKfycbwNDgKQ1l6kuSvp-_83ZzLCYK6_AleW-7dwHICRJfAxZa4S6r_JtH8mzoshQYxDvyQn-Q/exec?udi=" + encodeURIComponent(udi)
+        );
+
+        const data = await res.json();
+
+        document.getElementById("result").innerHTML =
+          "<b>Amount:</b> $" + data.amount +
+          "<br><b>Used For:</b> " + data.usedFor;
+      }
+    </script>
+  </body>
+</html>
